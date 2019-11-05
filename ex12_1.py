@@ -1,0 +1,1 @@
+print("How old are you?", input("this is input command")) # 안쪽에 있는 input()함수부터 실행하는 듯 하다.
