@@ -6,3 +6,5 @@ print('Yay! Printing.')
 print("안 '그랬으면' 좋겠네.")
 print('여기 "손대지마" 라고 했는데.')
 print("한글이 좀 불편한 감이 없지 않아 있네")
+
+print('깃에서 관리중')
