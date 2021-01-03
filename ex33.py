@@ -8,6 +8,7 @@ while i < 6:
     i = i + 1
     print("숫자는 이제: ", 숫자들)
     print(f"바닥에서 i는 {i}")
+    print("-" * 20)
 
 
 print("숫자: ")
