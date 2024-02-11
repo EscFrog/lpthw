@@ -46,13 +46,13 @@ class Death(Scene):
 
 class CentralCorridor(Scene):
 
-  def entrer(self):
+  def enter(self):
     print(dedent("""
       The Gothons of Planet Percal #25 have invaded your ship and
       destroyed your entire crew. You are the last surviving
       memeber and your last mission is to get the neutron destruct
       bomb from the Weapons Armory, put it tin the bridge, and
-      blou the ship up after getting into an escape pod.
+      blow the ship up after getting into an escape pod.
 
       You're running down the central corridor to the Weapons
       Armory when a Gothon jumps out, red scaly skin, dark grimy
@@ -78,7 +78,7 @@ class CentralCorridor(Scene):
     
     elif action == "dodge!":
       print(dedent("""
-        Like a wordl class boxer you dodge, weave, slip and
+        Like a world class boxer you dodge, weave, slip and
         slide right as the Gothon's blaster cranks a laser
         past your head. In the middle of your artful dodge
         your foot slips and you bang your head on the metal
@@ -119,6 +119,7 @@ class LaserWeaponArmory(Scene):
       """))
 
     code = f"{randint(1,9)}{randint(1,9)}{randint(1,9)}"
+    # print(code)
     guess = input("[keypad]> ")
     guesses = 0
 
@@ -145,7 +146,7 @@ class LaserWeaponArmory(Scene):
       return 'death'
 
 
-class theBridge(Scene):
+class TheBridge(Scene):
 
   def enter(self):
     print(dedent("""
@@ -192,19 +193,68 @@ class theBridge(Scene):
 class EscapePod(Scene):
 
   def enter(self):
-    pass
+    print(dedent("""
+      You rush through the ship desperately trying to make it to
+      the escape pod before the whole ship explodes. It seems
+      like hardly any Gothons are on the ship, so your run is
+      clear of interference. You get to the chamber with the
+      escape pods, and now need to pick one to take. Some of
+      them could be damaged but you don't have time to look.
+      There's 5 pods, which one do you take?
+      """))
+
+    good_pod = randint(1, 5)
+    # print(good_pod)
+    guess = input("[pod #]> ")
+
+
+    if int(guess) != good_pod:
+      print(dedent("""
+        You jump into pod {guess} and hit the eject button.
+        The pod escapes out into the void of space, then
+        implodes as the hull ruptures, crushing your body into
+        jam jelly.
+      """))
+      return 'death'
+    else:
+      print(dedent("""
+        You jump into pod {guess} and hit the eject button.
+        The pod easily slides out into space heading to the
+        planet below. As it flies to the planet, you look
+        back and see your ship implode then explode like a
+        bright star, taking out the Gothon ship at the same
+        time. You won!
+      """))
+      return 'finished'
+
+
+class Finished(Scene):
+
+  def enter(self):
+    print("You won! Good job.")
+    return 'finished'
 
 
 class Map(object):
 
+  scenes = {
+    'central_corridor': CentralCorridor(),
+    'laser_weapon_armory': LaserWeaponArmory(),
+    'the_bridge': TheBridge(),
+    'escape_pod': EscapePod(),
+    'death': Death(),
+    'finished': Finished(),
+  }
+
   def __init__(self, start_scene):
-    pass
+    self.start_scene = start_scene
 
   def next_scene(self, scene_name):
-    pass
+    val = Map.scenes.get(scene_name)
+    return val
 
   def opening_scene(self):
-    pass
+    return self.next_scene(self.start_scene)
 
 
 a_map = Map('central_corridor')
