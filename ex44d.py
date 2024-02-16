@@ -16,7 +16,8 @@ class Child(Parent):
 
   def altered(self):
     print("CHILD, BEFORE PARENT altered()")
-    super(Child, self).altered()
+    # super(Child, self).altered()
+    super().altered() # 파이썬3 부터는 인수를 안 넣는 것을 권장한다고 함. 그래야 MRO(Method Resolution Order)가 더 잘 작동한다고.
     print("CHILD, AFTER PARENT altered()")
 
 dad = Parent()
